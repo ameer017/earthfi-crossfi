@@ -1,13 +1,3 @@
-// import About from "./components/About";
-// import Contact from "./components/Contact";
-// import Create from "./components/Create";
-// import GetStarted from "./components/GetStarted";
-// import MarketPlace from "./components/MarketPlace";
-// import Service from "./components/Service";
-// import SingleOrder from "./components/SingleOrder";
-// import Team from "./components/Team";
-// import Layout from "./components/Layout";
-
 export { default as Home } from "./pages/Home";
 export { default as About } from "./components/About";
 export { default as Contact } from "./components/Contact";
