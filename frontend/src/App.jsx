@@ -1,35 +1,97 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import {
+  Home,
+  About,
+  Contact,
+  Create,
+  GetStarted,
+  MarketPlace,
+  Service,
+  SingleOrder,
+  Team,
+  Layout
+} from "./index";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/about-us"
+          element={
+            <Layout>
+              <About />
+            </Layout>
+          }
+        />
+        <Route
+          path="/contact-us"
+          element={
+            <Layout>
+              <Contact />
+            </Layout>
+          }
+        />
+        <Route
+          path="/create-order"
+          element={
+            <Layout>
+              <Create />
+            </Layout>
+          }
+        />
+        <Route
+          path="/get-started"
+          element={
+            <Layout>
+              <GetStarted />
+            </Layout>
+          }
+        />
+        <Route
+          path="/market-place"
+          element={
+            <Layout>
+              <MarketPlace />
+            </Layout>
+          }
+        />
+        <Route
+          path="/what-we-do"
+          element={
+            <Layout>
+              <Service />
+            </Layout>
+          }
+        />
+        <Route
+          path="/order/:id"
+          element={
+            <Layout>
+              <SingleOrder />
+            </Layout>
+          }
+        />
+        <Route
+          path="/team-members"
+          element={
+            <Layout>
+              <Team />
+            </Layout>
+          }
+        />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
