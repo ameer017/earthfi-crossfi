@@ -6,7 +6,7 @@ import Ecology from "../components/Ecology";
 
 const Home = () => {
   return (
-    <div>
+    <div className="flex flex-col ">
       <HeroSection />
       <Ecology />
       <Impact />
