@@ -24,7 +24,7 @@ const Impact = () => {
   }, []);
 
   return (
-    <div className=" px-4 py-2 flex items-center justify-center  gap-[12rem]  ">
+    <div className=" px-4 py-2 flex items-center justify-center  gap-[12rem]  font-ubuntu ">
       <div className="flex flex-col gap-2 p-4">
         <div className=" border-2 border-[#006546] p-6 rounded-lg bg-white w-[390px] h-[209px] flex flex-col  items-center justify-center">
           <h1 className="text-[28px] ">Environmental Impact</h1>
