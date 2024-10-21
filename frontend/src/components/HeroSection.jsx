@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const loadPage = async () => {
+    const navigate = useNavigate();
+
+    navigate("/get-started");
+  };
+
   return (
     <div
       className="h-[85vh] flex items-center p-6 "
@@ -21,7 +28,10 @@ const HeroSection = () => {
           Together, let's create a world where sustainability thrives.
         </p>
 
-        <button className="bg-[#F29F05] text-[16px] text-[#fff] p-[10px] rounded-lg mt-6">
+        <button
+          className="bg-[#F29F05] text-[16px] text-[#fff] p-[10px] rounded-lg mt-6"
+          onClick={loadPage}
+        >
           Explore Solutions
         </button>
       </div>
