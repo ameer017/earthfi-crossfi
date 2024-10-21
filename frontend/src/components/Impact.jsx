@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const media = [];
+const media = [
+  "/world.jpg",
+  "/pexelsOne.jpg",
+  "/pexelsTwo.jpg",
+  "/pexelsThree.jpg",
+];
 
 const Impact = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [fadeState, setFadeState] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFadeState(false);
+      setTimeout(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % media.length);
+        setFadeState(true);
+      }, 500);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div
-      className=" px-4 py-2 flex items-center  gap-[12rem]  "
-      // style={{
-      //   backgroundImage: `url("/union.png")`,
-      //   backgroundRepeat: "no-repeat",
-      //   backgroundPosition: "bottom right",
-      //   backgroundSize: "contain",
-      // }}
-    >
-      <div className="flex flex-col gap-2 p-4 border-2 ">
-        <div className="border-2 border-[#006546] p-6 rounded-lg bg-white w-[390px] h-[209px] flex flex-col  items-center justify-center">
+    <div className=" px-4 py-2 flex items-center justify-center  gap-[12rem]  font-ubuntu ">
+      <div className="flex flex-col gap-2 p-4">
+        <div className=" border-2 border-[#006546] p-6 rounded-lg bg-white w-[390px] h-[209px] flex flex-col  items-center justify-center">
           <h1 className="text-[28px] ">Environmental Impact</h1>
 
           <ul className="text-[16px] mt-3  text-[#7C7C7C] ">
@@ -46,8 +58,14 @@ const Impact = () => {
           </ul>
         </div>
       </div>
-      <div className=" w-[396px]  ">
-        <img src="" />
+      <div className="w-[396px] border-[1.4rem] rounded-lg">
+        <div
+          className={`w-full h-auto transition-opacity duration-500  rounded-lg ${
+            fadeState ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <img src={media[currentImageIndex]} />
+        </div>
       </div>
     </div>
   );
