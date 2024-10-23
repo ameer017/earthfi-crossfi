@@ -24,11 +24,13 @@ const Impact = () => {
   }, []);
 
   return (
-    <div className="px-4 py-6 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-[12rem] font-ubuntu">
+    <div className="px-4 py-6 flex flex-col-reverse lg:flex-row items-center justify-center gap-12 lg:gap-[12rem] font-ubuntu">
       <div className="flex flex-col gap-8 p-4">
         <div className="border-2 border-[#006546] p-6 rounded-lg bg-white w-full lg:w-[390px] h-[209px] flex flex-col items-center justify-center">
-          <h1 className="text-[24px] lg:text-[28px] text-center">Environmental Impact</h1>
-          <ul className="text-[16px] mt-3 text-[#7C7C7C] text-center">
+          <h1 className="text-[24px] lg:text-[28px] text-center">
+            Environmental Impact
+          </h1>
+          <ul className="text-[16px] mt-3 text-[#7C7C7C] ">
             <li>Improved Recycling Infrastructure.</li>
             <li>New recycling points.</li>
             <li>Greater recovery and recycling capabilities.</li>
@@ -37,8 +39,8 @@ const Impact = () => {
         </div>
 
         <div className="p-6 rounded-lg bg-[#006546] text-white w-full lg:ml-[18rem] lg:w-[390px] h-[209px] flex flex-col items-center justify-center lg:-mt-[40px]">
-          <h1 className="text-[24px] lg:text-[28px] text-center">Social Impact</h1>
-          <ul className="text-[16px] mt-3 text-white text-center">
+          <h1 className="text-[24px] lg:text-[28px] ">Social Impact</h1>
+          <ul className="text-[16px] mt-3 text-white ">
             <li>Dignified working opportunities.</li>
             <li>Empowerment of individuals in the workforce.</li>
             <li>Education and workshops.</li>
@@ -46,8 +48,10 @@ const Impact = () => {
         </div>
 
         <div className="border-2 border-[#006546] p-6 rounded-lg bg-white w-full lg:w-[390px] h-[209px] flex flex-col items-center justify-center lg:-mt-[40px]">
-          <h1 className="text-[24px] lg:text-[28px] text-center">Community Impact</h1>
-          <ul className="text-[16px] mt-3 text-[#7C7C7C] text-center">
+          <h1 className="text-[24px] lg:text-[28px] text-center">
+            Community Impact
+          </h1>
+          <ul className="text-[16px] mt-3 text-[#7C7C7C] ">
             <li>Achieve sustainability goals.</li>
             <li>Easily showcase impact.</li>
             <li>Attract new customers.</li>
@@ -56,13 +60,17 @@ const Impact = () => {
         </div>
       </div>
 
-      <div className="w-full lg:w-[396px] border-[1.4rem] rounded-lg">
+      <div className="w-[396px] border-[1.4rem] rounded-lg">
         <div
           className={`w-full h-auto transition-opacity duration-500 rounded-lg ${
             fadeState ? "opacity-100" : "opacity-0"
           }`}
         >
-          <img src={media[currentImageIndex]} alt="Impact" className="w-full h-auto rounded-lg" />
+          <img
+            src={media[currentImageIndex]}
+            alt="Impact"
+            className="w-full h-auto rounded-lg"
+          />
         </div>
       </div>
     </div>
