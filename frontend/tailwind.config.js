@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+
         ubuntu: ["Ubuntu", "sans-serif"],
       },
       clipPath: {
@@ -17,8 +18,10 @@ export default {
       },
       animation: {
         slide: "slide 20s linear infinite",
+
       },
     },
   },
-  plugins: [],
-};
+
+}
+
