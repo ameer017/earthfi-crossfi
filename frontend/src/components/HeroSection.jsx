@@ -9,7 +9,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div
+    <section
       className="flex items-center justify-center p-6 h-[85vh] bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage:
@@ -17,6 +17,7 @@ const HeroSection = () => {
         backgroundSize: "cover",
       }}
     >
+
       <div className="w-full max-w-[90%] md:max-w-[60%] lg:max-w-[50%] p-4 text-center md:text-left">
         <h1 className="text-[32px] md:text-[48px] font-medium text-[#292929] font-ubuntu">
           Welcome to EarthFi
@@ -31,7 +32,8 @@ const HeroSection = () => {
           Explore Solutions
         </button>
       </div>
-    </div>
+
+    </section>
   );
 };
 
