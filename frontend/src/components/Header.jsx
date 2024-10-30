@@ -23,7 +23,7 @@ const Header = () => {
         </button>
       </div>
 
-      <nav className="hidden md:flex justify-between items-center w-1/2">
+      <nav className="hidden md:flex justify-between items-center ">
         <Link to="/about-us" className="px-4 text-[16px]">
           About
         </Link>
@@ -33,13 +33,16 @@ const Header = () => {
         <Link to="/market-place" className="px-4 text-[16px]">
           Market Place
         </Link>
+        <Link to="/team-members" className="px-4 text-[16px]">
+          Team
+        </Link>
         <button className="bg-[#F29F05] text-[16px] text-white py-2 px-4 rounded-lg hover:bg-orange-200 transition-all duration-300 ease-in-out">
           Connect Wallet
         </button>
       </nav>
 
       {menuOpen && (
-        <nav className="absolute top-16 right-0 w-full bg-gray-100 flex flex-col items-end p-6 space-y-4 md:hidden z-10 ">
+        <nav className="absolute top-16 right-0 w-full bg-white flex flex-col items-end p-6 space-y-4 md:hidden z-10 ">
           <div className="flex flex-col">
             <Link
               to="/about-us"
@@ -61,6 +64,13 @@ const Header = () => {
               onClick={toggleMenu}
             >
               Market Place
+            </Link>
+            <Link
+              to="/team-members"
+              className="text-[16px] my-4"
+              onClick={toggleMenu}
+            >
+              Team
             </Link>
             <button
               className="bg-[#F29F05] text-[16px] text-white py-2 px-4 rounded-lg hover:bg-orange-200 transition-all duration-300 ease-in-out my-4"

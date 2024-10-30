@@ -56,10 +56,10 @@ const Footer = () => {
         <div className="w-full md:w-1/3 flex flex-col items-left space-y-2">
           <h2 className="text-[20px] md:text-[25px] font-semibold">Socials</h2>
           <div className="flex items-center gap-4 text-[18px] text-green-700">
-            <a href="">
+            <a href="https://x.com/EarthFi" className="border-[1px] rounded-full p-2 border-green-700">
               <FaXTwitter />
             </a>
-            <a href="mailto:team@earthfi.xyz">
+            <a href="mailto:team@earthfi.xyz" className="border-[1px] rounded-full p-2 border-green-700">
               <HiOutlineMail />
             </a>
           </div>
