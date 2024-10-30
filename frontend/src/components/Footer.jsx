@@ -47,7 +47,7 @@ const Footer = () => {
           </Link>
           <Link
             className="text-[16px] hover:-translate-y-2 transition duration-300 ease-in-out"
-            to="/team"
+            to="/team-members"
           >
             Team
           </Link>
