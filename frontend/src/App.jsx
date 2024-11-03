@@ -11,6 +11,7 @@ import {
   Team,
   Layout
 } from "./index";
+import Token from "./components/Token";
 
 function App() {
   return (
@@ -85,6 +86,15 @@ function App() {
           element={
             <Layout>
               <Team />
+            </Layout>
+          }
+        />
+
+          <Route
+          path="/token"
+          element={
+            <Layout>
+              <Token />
             </Layout>
           }
         />
