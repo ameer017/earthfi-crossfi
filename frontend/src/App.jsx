@@ -11,7 +11,11 @@ import {
   Team,
   Layout,
 } from "./index";
+
+import Token from "./components/Token";
+
 import ScrollToTop from "./components/ScrollToTop";
+
 
 function App() {
   return (
@@ -87,6 +91,15 @@ function App() {
           element={
             <Layout>
               <Team />
+            </Layout>
+          }
+        />
+
+          <Route
+          path="/token"
+          element={
+            <Layout>
+              <Token />
             </Layout>
           }
         />
