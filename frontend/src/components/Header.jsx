@@ -30,6 +30,9 @@ const Header = () => {
         <Link to="/create-order" className="px-4 text-[16px]">
           Create Order
         </Link>
+        {/* <Link to="/token" className="px-4 text-[16px]">
+          EarthFI
+        </Link> */}
         <Link to="/market-place" className="px-4 text-[16px]">
           Market Place
         </Link>
@@ -58,6 +61,10 @@ const Header = () => {
             >
               Create Order
             </Link>
+            {/* <Link to="/token" className="text-[16px] my-4" onClick={toggleMenu}>
+              EarthFI
+            </Link> */}
+
             <Link
               to="/market-place"
               className="text-[16px] my-4"

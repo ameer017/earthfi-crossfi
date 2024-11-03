@@ -8,3 +8,5 @@ export { default as Service } from "./components/Service";
 export { default as SingleOrder } from "./components/SingleOrder";
 export { default as Team } from "./components/Team";
 export { default as Layout } from "./components/Layout";
+export { default as ScrollToTop } from "./components/ScrollToTop";
+export { default as Token } from "./components/Token";

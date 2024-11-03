@@ -10,12 +10,9 @@ import {
   SingleOrder,
   Team,
   Layout,
+  ScrollToTop,
+  Token,
 } from "./index";
-
-import Token from "./components/Token";
-
-import ScrollToTop from "./components/ScrollToTop";
-
 
 function App() {
   return (
@@ -95,7 +92,7 @@ function App() {
           }
         />
 
-          <Route
+        <Route
           path="/token"
           element={
             <Layout>
