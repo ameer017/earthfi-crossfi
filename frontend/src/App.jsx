@@ -9,13 +9,18 @@ import {
   Service,
   SingleOrder,
   Team,
-  Layout
+  Layout,
 } from "./index";
+
 import Token from "./components/Token";
+
+import ScrollToTop from "./components/ScrollToTop";
+
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"

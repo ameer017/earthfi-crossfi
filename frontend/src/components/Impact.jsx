@@ -69,7 +69,8 @@ const Impact = () => {
           <img
             src={media[currentImageIndex]}
             alt="Impact"
-            className="w-full h-auto rounded-lg"
+            className="w-full h-auto "
+            loading="lazy"
           />
         </div>
       </div>
