@@ -10,3 +10,4 @@ export { default as Team } from "./components/Team";
 export { default as Layout } from "./components/Layout";
 export { default as ScrollToTop } from "./components/ScrollToTop";
 export { default as Token } from "./components/Token";
+export { default as Advisor } from "./components/Advisor";

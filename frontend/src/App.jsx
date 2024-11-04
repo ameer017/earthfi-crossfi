@@ -12,6 +12,7 @@ import {
   Layout,
   ScrollToTop,
   Token,
+  Advisor,
 } from "./index";
 
 function App() {
@@ -88,6 +89,14 @@ function App() {
           element={
             <Layout>
               <Team />
+            </Layout>
+          }
+        />
+        <Route
+          path="/advisor"
+          element={
+            <Layout>
+              <Advisor />
             </Layout>
           }
         />

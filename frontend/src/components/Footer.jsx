@@ -23,7 +23,7 @@ const Footer = () => {
           <h2 className="text-[20px] md:text-[25px] font-semibold">Company</h2>
           <Link
             className="text-[16px] hover:-translate-y-2 transition duration-300 ease-in-out"
-            to="/advisors"
+            to="/advisor"
           >
             Advisor
           </Link>
