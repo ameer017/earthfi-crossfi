@@ -8,6 +8,7 @@ const assets = [
     location: "Apt 421",
     price: 2003,
     weight: 1,
+    img: "/orderImage.png",
   },
   {
     id: 2,
@@ -15,6 +16,7 @@ const assets = [
     location: "Suite 89",
     price: 2006,
     weight: 2,
+    img: "/orderImage.png",
   },
   {
     id: 3,
@@ -22,27 +24,7 @@ const assets = [
     location: "PO Box 26955",
     price: 1998,
     weight: 3,
-  },
-  {
-    id: 4,
-    title: "Voyatouch",
-    location: "Apt 421",
-    price: 2003,
-    weight: 1,
-  },
-  {
-    id: 5,
-    title: "Holdlamis",
-    location: "Suite 89",
-    price: 2006,
-    weight: 2,
-  },
-  {
-    id: 6,
-    title: "Tampflex",
-    location: "PO Box 26955",
-    price: 1998,
-    weight: 3,
+    img: "/orderImage.png",
   },
 ];
 
@@ -89,19 +71,23 @@ const MarketPlace = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4 gap-6">
         {currentAssets.length > 0 ? (
-          currentAssets.map(({ id, title, location, price, weight }) => (
+          currentAssets.map(({ id, title, location, price, weight, img }) => (
             <Link
               to={`/order/${id}`}
               key={id}
               className="border-2 px-5 py-[3rem] rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl bg-white"
             >
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">{title}</h2>
-              <address className="text-sm text-gray-600 mb-4">
-                Seller&apos;s address: {location}
-              </address>
+              <img src={img} className="w-full mb-2  " />
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                {" "}
+                Title: {title}
+              </h2>
 
               <p className="text-lg font-semibold text-green-600">
-                Price: {price} CELO
+                Amount: {price} CELO
+              </p>
+              <p className="text-sm text-gray-600 mb-4">
+                Seller&apos;s Location: {location}
               </p>
               <p className="text-lg text-gray-500">Weight: {weight} kg</p>
             </Link>

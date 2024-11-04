@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-
 const assets = [
   {
     id: 1,
@@ -10,6 +9,7 @@ const assets = [
     price: 2003,
     weight: 1,
     description: "A high-quality product suitable for various uses.",
+    img: "/orderImage.png",
   },
   {
     id: 2,
@@ -18,6 +18,7 @@ const assets = [
     price: 2006,
     weight: 2,
     description: "Premium material designed for modern applications.",
+    img: "/orderImage.png",
   },
   {
     id: 3,
@@ -26,6 +27,7 @@ const assets = [
     price: 1998,
     weight: 3,
     description: "Durable and reliable product for all your needs.",
+    img: "/orderImage.png",
   },
   // Add more assets as needed
 ];
@@ -38,7 +40,7 @@ const SingleOrder = () => {
     return <p>Asset not found.</p>;
   }
 
-  const { title, location, price, weight, description } = asset;
+  const { title, location, price, weight, description, img } = asset;
 
   return (
     <section className="p-6 lg:p-12">
@@ -49,9 +51,9 @@ const SingleOrder = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="flex flex-col items-center">
           <img
-            src={`https://via.placeholder.com/500x500`}
+            src={img}
             alt={title}
-            className="w-full h-64 object-cover rounded-lg mb-4"
+            className="w-full h-72 object-cover rounded-lg mb-4"
           />
         </div>
 
