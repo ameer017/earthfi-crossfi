@@ -66,22 +66,19 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* <div className="mt-6 mb-0">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="100%"
-          height="254"
-          viewBox="0 0 1439 254"
-          fill="none"
-        >
-          <path
-            d="M-1 0C-1 0 230.778 103.346 385.791 137C792.857 225.377 1439 0 1439 0V254H-1V0Z"
-            fill="#002F22"
-          />
-        </svg>
-      </div> */}
+      <div className="relative mt-20 pb-20">
+        <img
+          src="/curve.png"
+          alt="Footer Curve"
+          className="absolute bottom-0 left-0 w-full"
+          style={{ zIndex: -1 }}
+        />
+      </div>
     </footer>
   );
 };
 
 export default Footer;
+
+
+

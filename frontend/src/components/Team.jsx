@@ -53,7 +53,7 @@ const team = [
 
 const Team = () => {
   return (
-    <section className="relative">
+    <section className="relative pt-[66px]">
       <div className="container mx-auto">
         <h2 className="text-[32px] md:text-[48px] leading-[40px] md:leading-[57.6px] font-u font-medium text-center mb-8 md:mb-12 text-[#292929]">
           Meet the Team
@@ -93,3 +93,8 @@ const Team = () => {
 };
 
 export default Team;
+
+
+
+
+
