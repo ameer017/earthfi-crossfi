@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         ubuntu: ["Ubuntu", "sans-serif"],
+        nunito: ["Nunito", "sans-serif"],
       },
       clipPath: {
         sloped: "polygon(0 0, 100% 10%, 100% 100%, 0 90%)",
