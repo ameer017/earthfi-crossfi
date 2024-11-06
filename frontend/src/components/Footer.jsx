@@ -6,7 +6,7 @@ import { HiOutlineMail } from "react-icons/hi";
 const Footer = () => {
   return (
     <footer className="flex flex-col border-t-2">
-      <div className="flex flex-wrap justify-between p-6 mt-8 space-y-6 md:space-y-0 md:flex-nowrap">
+      <div className="flex flex-wrap justify-between p-6 mt-8 space-y-6 md:space-y-0 md:flex-nowrap md:mb-[180px] " >
         <div className="w-full md:w-1/3 lg:w-[519px] md:mr-10 ">
           <Link to="/">
             <img src="/EarthFi.png" className="w-40 h-auto md:w-auto" />
@@ -66,7 +66,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="relative mt-20 pb-20">
+      <div className="relative mt-20 ">
         <img
           src="/curve.png"
           alt="Footer Curve"
