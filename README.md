@@ -1,5 +1,7 @@
 # EarthFi
 
+![Logo]("./frontend/public/EarthFi.png)
+
 EarthFi is a blockchain-based platform aimed at revolutionizing plastic recycling through value-driven incentives. By leveraging the capabilities of Celo's blockchain infrastructure, EarthFi seeks to establish a regenerative economy by turning plastic waste into a valuable resource, promoting sustainability and community empowerment.
 
 
@@ -81,4 +83,3 @@ For more information about EarthFi, please reach out to:
 - team@earthfi.xyz
 - www.earthfi.xyz
 
-![Logo](http://localhost:5173/EarthFi.png)
