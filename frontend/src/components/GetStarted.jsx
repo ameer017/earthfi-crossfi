@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FiPlus, FiMinus } from "react-icons/fi";
 
 const GetStarted = () => {
   const [faqOpen, setFaqOpen] = useState(null);
@@ -96,7 +97,9 @@ const GetStarted = () => {
             >
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">{faq.question}</h3>
-                <span className="text-lg">{faqOpen === index ? "-" : "+"}</span>
+                <span className="text-lg">
+                  {faqOpen === index ? <FiMinus size={20} /> : <FiPlus  size={20}/>}
+                </span>
               </div>
               {faqOpen === index && (
                 <p className="mt-3 text-gray-700 text-sm sm:text-base">
@@ -108,7 +111,7 @@ const GetStarted = () => {
         </div>
       </div>
 
-      <p className="my-[20px] text-[15px] ">
+      <p className="my-[25px] text-[15px] ">
         Ready to get started? Connect your wallet and let's make a difference
         together!
       </p>

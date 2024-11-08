@@ -15,17 +15,36 @@ import {
   Advisor,
 } from "./index";
 
+import { useState, useEffect } from "react";
+import { PropagateLoader } from "react-spinners";
+
 function App() {
-  return (
-    <>
-      <ScrollToTop />
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+  const loadRoutes = () => {
+    return (
       <Routes>
         <Route
           path="/"
           element={
-            <Layout>
+            loading ? (
+              <div className="h-screen w-full flex justify-center items-center">
+                <PropagateLoader
+                  color="#2d7343"
+                  loading={loading}
+                  size={8}
+                  speedMultiplier={1}
+                />
+              </div>
+            ) : (
               <Home />
-            </Layout>
+            )
           }
         />
         <Route
@@ -109,7 +128,21 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          path="/services"
+          element={
+            <Layout>
+              <Service />
+            </Layout>
+          }
+        />
       </Routes>
+    );
+  };
+  return (
+    <>
+      <ScrollToTop />
+      {loadRoutes()}
     </>
   );
 }
