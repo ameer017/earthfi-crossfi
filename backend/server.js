@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: "http://localhost:5173",
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     optionSuccessStatus: 200,
@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/api/contact", contactRouter);
+app.use("/api/contact", contactRouter);
 
 connectDB();
 mongoose.connection.once("open", () => {
