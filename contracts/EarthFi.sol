@@ -1,10 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.27;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-
-contract EarthFi is ERC721URIStorage {
+contract EarthFi {
     address public owner;
 
     bool private locked;
@@ -24,8 +21,8 @@ contract EarthFi is ERC721URIStorage {
     // create events relating to your functions
     event AssetListed(string indexed title, string location, uint256 amount);
 
-    constructor() ERC721("EarthFi", "ETF") {
-        owner = payable(msg.sender);
+    constructor() {
+        owner = msg.sender;
     }
 
     function generateProductId() internal view returns (uint256) {
@@ -68,5 +65,34 @@ contract EarthFi is ERC721URIStorage {
         productIds.push(assetId);
 
         emit AssetListed(_title, _location, _amount);
+    }
+
+    function viewAssetDetails(
+        uint256 _index
+    )
+        external
+        view
+        returns (
+            string memory title_,
+            string memory location_,
+            uint256 weight_,
+            uint256 amount_,
+            bool available_
+        )
+    {
+        require(msg.sender != address(0), "Zero address not allowed!");
+        require(_index < products.length, "Out of bound!");
+
+        ListedProducts memory singleProduct = products[_index];
+
+        title_ = singleProduct.title;
+        location_ = singleProduct.location;
+        weight_ = singleProduct.weight;
+        amount_ = singleProduct.amount;
+        available_ = singleProduct.available;
+    }
+
+    function getAllProducts() external view returns (ListedProducts[] memory) {
+        return products;
     }
 }
