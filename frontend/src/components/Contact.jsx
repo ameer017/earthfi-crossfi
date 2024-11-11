@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -7,7 +8,7 @@ const Contact = () => {
     message: "",
   });
 
-  const [responseMessage, setResponseMessage] = useState("");
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,26 +18,21 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.name || !formData.email || !formData.message) {
+      setError("Please fill out all fields");
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.post(
+        "https://earthfi-r6js.vercel.app/api/contact",
+        formData
+      );
 
-      const result = await response.json();
-
-      if (response.ok) {
-        setResponseMessage(result.message);
-        // Clear form
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setResponseMessage(result.error || "Something went wrong");
-      }
+      // Clear form
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      setResponseMessage("An error occurred while sending the message.");
+      setError("Error sending message: " + error.message);
     }
   };
 
