@@ -1,102 +1,201 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.27;
+pragma solidity 0.8.27;
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-
-contract EarthFi is ERC721URIStorage {
+contract EarthFi {
     address public owner;
+    address earthfiToken;
+    bool private locked;
 
-    struct ListedProduct {
+    struct ListedProducts {
         uint256 assetId;
         string title;
         string location;
         uint256 weight;
         uint256 amount;
+        address seller;
         bool available;
     }
-
-    struct Transaction {
-        uint256 assetId;
-        uint256 price;
-        address seller;
-        address buyer;
-        uint256 timestamp;
-        bool sold;
-    }
-
-    mapping(uint256 => ListedProduct) private products;
-
-    mapping(address => Transaction[]) private userTransactions;
-
+    ListedProducts[] public products;
     uint256[] private productIds;
 
-    // event ProductListed(uint256 assetId, string title, uint256 price);
-    // event ProductSold(uint256 assetId, address buyer, uint256 price, uint256 timestamp);
+    struct AssetTransaction {
+        uint256 timestamp;
+        uint256 amount;
+        address buyer;
+        address seller;
+        uint256 assetId;
+    }
 
-    constructor() ERC721("Earthfi", "ETF") {
+    mapping(address => AssetTransaction[]) public userTransactions;
+    mapping(uint256 => AssetTransaction[]) public assetTransactions;
+
+    // create events relating to your functions
+    event AssetListed(string indexed title, string location, uint256 amount);
+    event AssetBought(address indexed buyer, string title, uint256 amount);
+    event AssetReceived(address indexed seller, string title, uint256 amount);
+
+    constructor(address _tokenAddress) {
         owner = msg.sender;
+        earthfiToken = _tokenAddress;
     }
 
     function generateProductId() internal view returns (uint256) {
+        // remember to increament whenever a product is listed
         return productIds.length + 1;
     }
 
-    // List a product
-    // function listProduct(
-    //     uint256 assetId,
-    //     string memory title,
-    //     string memory location, 
-    //     uint256 weight,
-    //     uint256 amount
-    // ) public {
-    //     require(msg.sender == owner, "Only owner can list products");
+    modifier noReentrancy() {
+        require(!locked, "Reentrancy attack detected");
+        locked = true;
+        _;
+        locked = false;
+    }
 
-    //     products[assetId] = ListedProduct({
-    //         assetId: assetId,
-    //         title: title,
-    //         location: location,
-    //         weight: weight,
-    //         amount: amount,
-    //         available: true
-    //     });
-    //     productIds.push(assetId);
+    function listAsset(
+        string memory _title,
+        string memory _location,
+        uint256 _weight,
+        uint256 _amount
+    ) external noReentrancy {
+        require(msg.sender != address(0), "Zero address is not allowed");
 
-    //     emit ProductListed(assetId, title, amount);
-    // }
+        require(bytes(_title).length > 0, "Title cannot be empty");
+        require(bytes(_location).length > 0, "Location cannot be empty");
+        require(_weight > 0, "Weight must be greater than zero");
+        require(_amount > 0, "Amount must be greater than zero");
 
-    // Buy a product
-//   function buyProduct(uint256 assetId) public payable {
-//     ListedProduct storage product = products[assetId];
-//     require(product.available, "Product not available");
-//     require(msg.value == product.amount, "Incorrect payment amount");
+        uint256 assetId = generateProductId();
+        ListedProducts memory listedProduct;
 
-//     // Mark product as unavailable before making the payment to prevent reentrancy
-//     product.available = false;
+        listedProduct.assetId = assetId;
+        listedProduct.title = _title;
+        listedProduct.location = _location;
+        listedProduct.weight = _weight;
+        listedProduct.amount = _amount;
+        listedProduct.seller = msg.sender;
+        listedProduct.available = true;
 
-//     // Record the transaction in user's history
-//     Transaction memory newTransaction = Transaction({
-//         assetId: assetId,
-//         price: msg.value,
-//         seller: owner,
-//         buyer: msg.sender,
-//         timestamp: block.timestamp,
-//         sold: true
-//     });
-//     userTransactions[msg.sender].push(newTransaction);  
-//     userTransactions[owner].push(newTransaction);       
+        products.push(listedProduct);
 
-//     // Emit event before handling payment to avoid reentrancy issues
-//     emit ProductSold(assetId, msg.sender, msg.value, block.timestamp);
+        productIds.push(assetId);
 
-//     // Transfer payment to the owner
-//     (bool sent, ) = owner.call{value: product.amount}("");
-//     require(sent, "Payment transfer to owner failed");
-// }
+        AssetTransaction memory assetTransaction;
+        assetTransaction.timestamp = block.timestamp;
+        assetTransaction.amount = _amount;
+        assetTransaction.buyer = address(0);
+        assetTransaction.seller = msg.sender;
+        assetTransaction.assetId = assetId;
 
+        assetTransactions[assetId].push(assetTransaction);
 
-    // Retrieve user's transaction history
-    function getUserAssetsHistory() public view returns (Transaction[] memory) {
-        return userTransactions[msg.sender];
+        userTransactions[msg.sender].push(assetTransaction);
+
+        emit AssetListed(_title, _location, _amount);
+    }
+
+    function viewAssetDetails(
+        uint256 _index
+    )
+        external
+        view
+        returns (
+            string memory title_,
+            string memory location_,
+            uint256 weight_,
+            uint256 amount_,
+            bool available_
+        )
+    {
+        require(msg.sender != address(0), "Zero address not allowed!");
+        require(_index < products.length, "Out of bound!");
+
+        ListedProducts memory singleProduct = products[_index];
+
+        title_ = singleProduct.title;
+        location_ = singleProduct.location;
+        weight_ = singleProduct.weight;
+        amount_ = singleProduct.amount;
+        available_ = singleProduct.available;
+    }
+
+    function getAllProducts() external view returns (ListedProducts[] memory) {
+        return products;
+    }
+
+    function buyAsset(uint256 _index) public noReentrancy returns (bool) {
+        require(msg.sender != address(0), "Zero address not allowed!");
+
+        ListedProducts memory singleProduct = products[_index];
+        require(
+            singleProduct.available == true,
+            "Product not available for sale"
+        );
+
+        uint256 userBal = IERC20(earthfiToken).balanceOf(msg.sender);
+
+        require(userBal >= singleProduct.amount, "Your balance is not enough");
+
+        require(
+            IERC20(earthfiToken).transferFrom(
+                msg.sender,
+                address(this),
+                singleProduct.amount
+            ),
+            "Transfer failed"
+        );
+
+        singleProduct.available = false;
+
+        products[_index] = singleProduct;
+
+        AssetTransaction memory assetTransaction;
+        assetTransaction.timestamp = block.timestamp;
+        assetTransaction.amount = singleProduct.amount;
+        assetTransaction.buyer = msg.sender;
+        assetTransaction.seller = singleProduct.seller;
+        assetTransaction.assetId = singleProduct.assetId;
+
+        assetTransactions[singleProduct.assetId].push(assetTransaction);
+
+        userTransactions[msg.sender].push(assetTransaction);
+        userTransactions[singleProduct.seller].push(assetTransaction);
+
+        emit AssetBought(msg.sender, singleProduct.title, singleProduct.amount);
+
+        return true;
+    }
+
+    function confirmReceipt(uint256 _index) public noReentrancy returns (bool) {
+        require(msg.sender != address(0), "Zero address not allowed!");
+
+        ListedProducts memory singleProduct = products[_index];
+        require(
+            singleProduct.available == false,
+            "Product is still available for sale"
+        );
+
+        uint256 amountToTransfer = singleProduct.amount;
+        require(
+            IERC20(earthfiToken).transfer(
+                singleProduct.seller,
+                amountToTransfer
+            ),
+            "Transfer failed"
+        );
+
+        products[_index] = singleProduct;
+
+        emit AssetReceived(
+            singleProduct.seller,
+            singleProduct.title,
+            amountToTransfer
+        );
+
+        return true;
+    }
+
+    function getUserAssetsHistory() public view returns (AssetTransaction[] memory) {
+        return userTransactions;
     }
 }
