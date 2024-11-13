@@ -194,4 +194,8 @@ contract EarthFi {
 
         return true;
     }
+
+    function getUserAssetsHistory() public view returns (AssetTransaction[] memory) {
+        return userTransactions;
+    }
 }
