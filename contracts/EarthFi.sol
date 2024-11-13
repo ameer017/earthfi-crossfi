@@ -33,9 +33,11 @@ contract EarthFi {
     // create events relating to your functions
     event AssetListed(string indexed title, string location, uint256 amount);
     event AssetBought(address indexed buyer, string title, uint256 amount);
+    event AssetReceived(address indexed seller, string title, uint256 amount);
 
-    constructor() {
+    constructor(address _tokenAddress) {
         owner = msg.sender;
+        earthfiToken = _tokenAddress;
     }
 
     function generateProductId() internal view returns (uint256) {
@@ -121,10 +123,7 @@ contract EarthFi {
         return products;
     }
 
-    function buyAsset(
-        uint256 _index,
-        uint256 _amount
-    ) public noReentrancy returns (bool) {
+    function buyAsset(uint256 _index) public noReentrancy returns (bool) {
         require(msg.sender != address(0), "Zero address not allowed!");
 
         ListedProducts memory singleProduct = products[_index];
@@ -135,13 +134,13 @@ contract EarthFi {
 
         uint256 userBal = IERC20(earthfiToken).balanceOf(msg.sender);
 
-        require(userBal >= _amount, "Your balance is not enough");
+        require(userBal >= singleProduct.amount, "Your balance is not enough");
 
         require(
             IERC20(earthfiToken).transferFrom(
                 msg.sender,
                 address(this),
-                _amount
+                singleProduct.amount
             ),
             "Transfer failed"
         );
@@ -152,7 +151,7 @@ contract EarthFi {
 
         AssetTransaction memory assetTransaction;
         assetTransaction.timestamp = block.timestamp;
-        assetTransaction.amount = _amount;
+        assetTransaction.amount = singleProduct.amount;
         assetTransaction.buyer = msg.sender;
         assetTransaction.seller = singleProduct.seller;
         assetTransaction.assetId = singleProduct.assetId;
@@ -162,8 +161,37 @@ contract EarthFi {
         userTransactions[msg.sender].push(assetTransaction);
         userTransactions[singleProduct.seller].push(assetTransaction);
 
-        emit AssetBought(msg.sender, singleProduct.title, _amount);
-        
+        emit AssetBought(msg.sender, singleProduct.title, singleProduct.amount);
+
+        return true;
+    }
+
+    function confirmReceipt(uint256 _index) public noReentrancy returns (bool) {
+        require(msg.sender != address(0), "Zero address not allowed!");
+
+        ListedProducts memory singleProduct = products[_index];
+        require(
+            singleProduct.available == false,
+            "Product is still available for sale"
+        );
+
+        uint256 amountToTransfer = singleProduct.amount;
+        require(
+            IERC20(earthfiToken).transfer(
+                singleProduct.seller,
+                amountToTransfer
+            ),
+            "Transfer failed"
+        );
+
+        products[_index] = singleProduct;
+
+        emit AssetReceived(
+            singleProduct.seller,
+            singleProduct.title,
+            amountToTransfer
+        );
+
         return true;
     }
 }
