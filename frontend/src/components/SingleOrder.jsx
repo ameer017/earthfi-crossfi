@@ -10,6 +10,8 @@ const assets = [
     weight: 1,
     description: "A high-quality product suitable for various uses.",
     img: "/orderImage.png",
+    imgTwo: "/earth.png",
+    vid: "/vid.mp4",
   },
   {
     id: 2,
@@ -19,6 +21,8 @@ const assets = [
     weight: 2,
     description: "Premium material designed for modern applications.",
     img: "/orderImage.png",
+    imgTwo: "/earth.png",
+    vid: "/vid.mp4",
   },
   {
     id: 3,
@@ -28,8 +32,9 @@ const assets = [
     weight: 3,
     description: "Durable and reliable product for all your needs.",
     img: "/orderImage.png",
+    imgTwo: "/earth.png",
+    vid: "/vid.mp4",
   },
-  // Add more assets as needed
 ];
 
 const SingleOrder = () => {
@@ -40,12 +45,13 @@ const SingleOrder = () => {
     return <p>Asset not found.</p>;
   }
 
-  const { title, location, price, weight, description, img } = asset;
+  const { title, location, price, weight, description, img, imgTwo, vid } =
+    asset;
 
   return (
     <section className="p-6 lg:p-12">
-      <div className="bg-blue-600 text-white p-8 rounded-lg text-center mb-10">
-        <h1 className="text-4xl lg:text-6xl font-bold">{title}</h1>
+      <div className="bg-gradient-to-r from-green-200 via-green-400 to-white p-8 rounded-lg text-center mb-10">
+        <h1 className="text-4xl lg:text-6xl font-bold text-black ">{title}</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -76,6 +82,15 @@ const SingleOrder = () => {
             <button className="bg-green-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-green-700 transition duration-300">
               Order Now
             </button>
+          </div>
+        </div>
+
+        <div className="block ">
+          <hr />
+          <div className="flex  p-4 items-center flex-col md:flex-row">
+            <img src={imgTwo} className="w-1/2 rounded-md" />
+
+            <video src={vid} controls className="w-1/2 rounded-md"></video>
           </div>
         </div>
       </div>

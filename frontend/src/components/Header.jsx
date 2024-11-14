@@ -36,6 +36,9 @@ const Header = () => {
         <Link to="/market-place" className="px-4 text-[16px]">
           Market Place
         </Link>
+        <Link to="/profile" className="px-4 text-[16px]">
+          Profile
+        </Link>
         <Link to="/team-members" className="px-4 text-[16px]">
           Team
         </Link>
@@ -71,6 +74,13 @@ const Header = () => {
               onClick={toggleMenu}
             >
               Market Place
+            </Link>
+            <Link
+              to="/profile"
+              className="text-[16px] my-4"
+              onClick={toggleMenu}
+            >
+              Profile
             </Link>
             <Link
               to="/team-members"

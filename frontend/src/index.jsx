@@ -11,3 +11,4 @@ export { default as Layout } from "./components/Layout";
 export { default as ScrollToTop } from "./components/ScrollToTop";
 export { default as Token } from "./components/Token";
 export { default as Advisor } from "./components/Advisor";
+export { default as Profile } from "./components/Profile/Profile";

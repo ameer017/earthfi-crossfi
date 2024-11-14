@@ -13,6 +13,7 @@ import {
   ScrollToTop,
   Token,
   Advisor,
+  Profile,
 } from "./index";
 
 import { useState, useEffect } from "react";
@@ -133,6 +134,14 @@ function App() {
           element={
             <Layout>
               <Service />
+            </Layout>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Layout>
+              <Profile />
             </Layout>
           }
         />

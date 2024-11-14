@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Union from "../assets/Union.png";
 
 const Create = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleInputClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleYes = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleNo = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-4 my-9">
       <div className="flex flex-col items-start">
@@ -84,6 +101,7 @@ const Create = () => {
                 type="file"
                 placeholder="upload img"
                 className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                onClick={handleInputClick}
               />
             </div>
 
@@ -95,6 +113,37 @@ const Create = () => {
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-sm mx-auto">
+            <h2 className="text-lg font-bold mb-4">
+              Requirements [1 video and 2 images]{" "}
+            </h2>
+            <p className="mb-4">
+              The following files are expected to be uploaded:
+            </p>
+            <ul className="list-disc pl-5 mb-4">
+              <li>A recorded video of the asset being weighed</li>
+              <li>Image of the asset before and after being weighed</li>
+            </ul>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={handleNo}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                No
+              </button>
+              <button
+                onClick={handleYes}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
