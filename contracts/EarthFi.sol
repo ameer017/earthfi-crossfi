@@ -251,5 +251,23 @@ contract EarthFi {
         return result;
     }
 
-    
+    function generateSellBalance() public view returns (uint256) {
+        uint256 totalAmount = 0;
+        for (uint256 i = 0; i < userTransactions[msg.sender].length; i++) {
+            if (userTransactions[msg.sender][i].seller == msg.sender) {
+                totalAmount += userTransactions[msg.sender][i].amount;
+            }
+        }
+        return totalAmount;
+    }
+
+    function generateBuyBalance() public view returns (uint256) {
+        uint256 totalAmount = 0;
+        for (uint256 i = 0; i < userTransactions[msg.sender].length; i++) {
+            if (userTransactions[msg.sender][i].buyer == msg.sender) {
+                totalAmount += userTransactions[msg.sender][i].amount;
+            }
+        }
+        return totalAmount;
+    }
 }
