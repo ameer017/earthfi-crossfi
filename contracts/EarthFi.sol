@@ -195,7 +195,61 @@ contract EarthFi {
         return true;
     }
 
-    function getUserAssetsHistory() public view returns (AssetTransaction[] memory) {
-        return userTransactions;
+    function getUserAllTransactions(
+        // return an array of AssetTransaction structs for a given user, which includes both buy and sell transactions
+        address _user
+    ) public view returns (AssetTransaction[] memory) {
+        return userTransactions[_user];
     }
+
+    function getAssetTransactions(
+        // returns an array of transactions for a specific asset ID
+        uint256 _assetId
+    ) public view returns (AssetTransaction[] memory) {
+        return assetTransactions[_assetId];
+    }
+
+    function getUserBuyTransactions(
+        // returns all buy txn of a user
+        address _buyer
+    ) public view returns (AssetTransaction[] memory) {
+        AssetTransaction[] memory transactions = userTransactions[_buyer];
+        AssetTransaction[] memory buyTransactions = new AssetTransaction[](
+            transactions.length
+        );
+        uint256 index = 0;
+        for (uint256 i = 0; i < transactions.length; i++) {
+            if (transactions[i].buyer == _buyer) {
+                buyTransactions[index++] = transactions[i];
+            }
+        }
+        AssetTransaction[] memory result = new AssetTransaction[](index);
+        for (uint256 i = 0; i < index; i++) {
+            result[i] = buyTransactions[i];
+        }
+        return result;
+    }
+
+    function getUserSellTransactions(
+        // returns all sell txn of a user
+        address _seller
+    ) public view returns (AssetTransaction[] memory) {
+        AssetTransaction[] memory transactions = userTransactions[_seller];
+        AssetTransaction[] memory sellTransactions = new AssetTransaction[](
+            transactions.length
+        );
+        uint256 index = 0;
+        for (uint256 i = 0; i < transactions.length; i++) {
+            if (transactions[i].seller == _seller) {
+                sellTransactions[index++] = transactions[i];
+            }
+        }
+        AssetTransaction[] memory result = new AssetTransaction[](index);
+        for (uint256 i = 0; i < index; i++) {
+            result[i] = sellTransactions[i];
+        }
+        return result;
+    }
+
+    
 }
