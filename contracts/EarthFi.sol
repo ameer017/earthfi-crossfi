@@ -29,11 +29,13 @@ contract EarthFi {
 
     mapping(address => AssetTransaction[]) public userTransactions;
     mapping(uint256 => AssetTransaction[]) public assetTransactions;
+    mapping(address => mapping(uint256 => bool)) public withdrawalStatus;
 
     // create events relating to your functions
     event AssetListed(string indexed title, string location, uint256 amount);
     event AssetBought(address indexed buyer, string title, uint256 amount);
     event AssetReceived(address indexed seller, string title, uint256 amount);
+    event FundsWithdrawn(address indexed receiver, uint256 amount);
 
     constructor(address _tokenAddress) {
         owner = msg.sender;
@@ -94,7 +96,7 @@ contract EarthFi {
         emit AssetListed(_title, _location, _amount);
     }
 
-    function viewAssetDetails(
+    function viewAssetDetail(
         uint256 _index
     )
         external
@@ -186,6 +188,8 @@ contract EarthFi {
 
         products[_index] = singleProduct;
 
+        withdrawalStatus[singleProduct.seller][singleProduct.assetId] = true;
+
         emit AssetReceived(
             singleProduct.seller,
             singleProduct.title,
@@ -270,4 +274,5 @@ contract EarthFi {
         }
         return totalAmount;
     }
+
 }
