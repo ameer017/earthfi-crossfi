@@ -31,10 +31,14 @@ contract EarthFi {
     mapping(uint256 => AssetTransaction[]) public assetTransactions;
     mapping(address => mapping(uint256 => bool)) public withdrawalStatus;
 
-    // create events relating to your functions
     event AssetListed(string indexed title, string location, uint256 amount);
     event AssetBought(address indexed buyer, string title, uint256 amount);
     event AssetReceived(address indexed seller, string title, uint256 amount);
+    event AssetPurchaseCancelled(
+        address indexed user,
+        uint256 assetId,
+        uint256 amount
+    );
 
     constructor(address _tokenAddress) {
         owner = msg.sender;
@@ -274,5 +278,52 @@ contract EarthFi {
         return totalAmount;
     }
 
-    
+    function cancelPurchase(uint256 _index) public noReentrancy {
+        require(msg.sender != address(0), "Zero address not allowed!");
+
+        ListedProducts memory singleProduct = products[_index];
+
+        require(
+            singleProduct.available == false,
+            "Product is still available, cannot cancel purchase"
+        );
+
+        require(
+            userTransactions[msg.sender].length > 0,
+            "No transactions found for this user"
+        );
+
+        AssetTransaction[] storage transactions = assetTransactions[
+            singleProduct.assetId
+        ];
+        bool found = false;
+        uint256 transactionIndex = 0;
+
+        for (uint256 i = 0; i < transactions.length; i++) {
+            if (
+                transactions[i].buyer == msg.sender &&
+                transactions[i].assetId == singleProduct.assetId
+            ) {
+                found = true;
+                transactionIndex = i;
+                break;
+            }
+        }
+
+        require(found, "No matching transaction found");
+
+        singleProduct.available = true;
+        products[_index] = singleProduct;
+
+        require(
+            IERC20(earthfiToken).transfer(msg.sender, singleProduct.amount),
+            "Refund failed"
+        );
+
+        emit AssetPurchaseCancelled(
+            msg.sender,
+            singleProduct.assetId,
+            singleProduct.amount
+        );
+    }
 }
