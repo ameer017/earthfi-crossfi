@@ -35,7 +35,6 @@ contract EarthFi {
     event AssetListed(string indexed title, string location, uint256 amount);
     event AssetBought(address indexed buyer, string title, uint256 amount);
     event AssetReceived(address indexed seller, string title, uint256 amount);
-    event FundsWithdrawn(address indexed receiver, uint256 amount);
 
     constructor(address _tokenAddress) {
         owner = msg.sender;

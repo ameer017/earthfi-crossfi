@@ -30,9 +30,9 @@ const Header = () => {
         <Link to="/create-order" className="px-4 text-[16px]">
           Create Order
         </Link>
-        {/* <Link to="/token" className="px-4 text-[16px]">
+        <Link to="/token" className="px-4 text-[16px]">
           EarthFI
-        </Link> */}
+        </Link>
         <Link to="/market-place" className="px-4 text-[16px]">
           Market Place
         </Link>
@@ -42,9 +42,10 @@ const Header = () => {
         <Link to="/team-members" className="px-4 text-[16px]">
           Team
         </Link>
-        <button className="bg-[#F29F05] text-[16px] text-white py-2 px-4 rounded-lg hover:bg-orange-200 transition-all duration-300 ease-in-out">
+        {/* <button className="bg-[#F29F05] text-[16px] text-white py-2 px-4 rounded-lg hover:bg-orange-200 transition-all duration-300 ease-in-out">
           Connect Wallet
-        </button>
+        </button> */}
+        <appkit-button />
       </nav>
 
       {menuOpen && (
@@ -64,9 +65,9 @@ const Header = () => {
             >
               Create Order
             </Link>
-            {/* <Link to="/token" className="text-[16px] my-4" onClick={toggleMenu}>
+            <Link to="/token" className="text-[16px] my-4" onClick={toggleMenu}>
               EarthFI
-            </Link> */}
+            </Link>
 
             <Link
               to="/market-place"
@@ -89,12 +90,9 @@ const Header = () => {
             >
               Team
             </Link>
-            <button
-              className="bg-[#F29F05] text-[16px] text-white py-2 px-4 rounded-lg hover:bg-orange-200 transition-all duration-300 ease-in-out my-4"
-              onClick={toggleMenu}
-            >
-              Connect Wallet
-            </button>
+            <div onClick={toggleMenu}>
+              <appkit-button />
+            </div>
           </div>
         </nav>
       )}

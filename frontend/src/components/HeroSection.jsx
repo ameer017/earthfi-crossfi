@@ -14,7 +14,7 @@ const HeroSection = () => {
       style={{
         backgroundImage:
           "linear-gradient(to right, rgba(240, 255, 240, 0.8), rgba(255, 255, 255, 0.2)), url('/herobg.png')",
-        backgroundSize: "cover",
+        backgroundSize: "contain",
       }}
     >
       <div className="w-full max-w-[90%] md:max-w-[60%] lg:max-w-[50%] p-4 text-center md:text-left">

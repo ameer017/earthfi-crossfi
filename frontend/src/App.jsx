@@ -1,3 +1,4 @@
+import "./config/connection";
 import { Route, Routes } from "react-router-dom";
 import {
   Home,

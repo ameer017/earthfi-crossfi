@@ -7,7 +7,7 @@ const formatFunctions = async () => {
   async function buybalance() {}
   async function sellbalance() {}
 
-  return { getAllTxns, buyTxns, sellTxns, buybalance, buybalance, sellbalance };
+  return { getAllTxns, buyTxns, sellTxns, buybalance, sellbalance };
 };
 
 export default formatFunctions;

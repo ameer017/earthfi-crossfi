@@ -9,6 +9,7 @@ const Contact = () => {
   });
 
   const [error, setError] = useState(null);
+  const [responseMessage, setResponseMessage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +29,7 @@ const Contact = () => {
         "https://earthfi-r6js.vercel.app/api/contact",
         formData
       );
-
+      setResponseMessage(response.data.message);
       // Clear form
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
