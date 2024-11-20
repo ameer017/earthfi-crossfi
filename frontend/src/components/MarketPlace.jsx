@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAsset } from "../context/assetContext";
 
 const MarketPlace = () => {
   const { assets } = useAsset();
-  console.log(assets);
+  // console.log(assets);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+
 
   const filteredAssets = assets.filter(
     ({ title, location }) =>
@@ -30,7 +31,7 @@ const MarketPlace = () => {
   };
 
   return (
-    <section className="p-6">
+    <section className="p-6 h-full">
       <h1 className="text-[48px] text-center mb-6">Market Place.</h1>
 
       <div className="flex justify-center py-4">
@@ -56,14 +57,14 @@ const MarketPlace = () => {
               amount,
               weight,
               img,
-              available,
+              file,
             }) => (
               <Link
                 to={`/order/${assetId}`}
                 key={id}
                 className="border-2 px-5 py-[3rem] rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl bg-white"
               >
-                <img src={img} className="w-full mb-2  " />
+                <img src={file} className="w-full mb-2  " />
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
                   {" "}
                   Title: {title}
@@ -72,7 +73,7 @@ const MarketPlace = () => {
                 <p className="text-lg font-semibold text-green-600">
                   Amount: {amount} CELO
                 </p>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-lg text-gray-600 mb-4">
                   Seller&apos;s Location: {location}
                 </p>
                 <p className="text-lg text-gray-500">Weight: {weight} kg</p>

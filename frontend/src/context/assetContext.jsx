@@ -29,6 +29,7 @@ export const AssetContextProvider = ({ children }) => {
         weight: Number(asset.weight),
         amount: Number(asset.amount),
         available: asset.available,
+        file: asset.fileUrls[0],
       }));
 
       // console.log(formattedTodos)

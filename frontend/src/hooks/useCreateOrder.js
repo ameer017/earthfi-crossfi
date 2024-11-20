@@ -37,7 +37,6 @@ const useCreateOrder = () => {
         const weightBN = BigInt(weight);
         const amountBN = BigInt(amount);
 
-        // Upload files to IPFS
         toast.info("Uploading files...");
         const fileUrls = await Promise.all(
           files.map(async (file) => {
@@ -50,7 +49,7 @@ const useCreateOrder = () => {
           })
         );
 
-        // Prepare metadata
+        
         const metadata = {
           title,
           weight,
@@ -59,7 +58,7 @@ const useCreateOrder = () => {
           files: fileUrls,
         };
 
-        // Estimate gas and send transaction
+        
         toast.info("Uploading metadata to IPFS...");
         const metadataResponse = await uploadJSONToIPFS(metadata);
 
@@ -70,12 +69,14 @@ const useCreateOrder = () => {
           return;
         }
 
+        
         toast.info("Estimating gas...");
         const estimatedGas = await contract.listAsset.estimateGas(
           title,
           location,
           weightBN,
-          amountBN
+          amountBN,
+          fileUrls 
         );
 
         const txn = await contract.listAsset(
@@ -83,6 +84,7 @@ const useCreateOrder = () => {
           location,
           weightBN,
           amountBN,
+          fileUrls, 
           {
             gasLimit: (estimatedGas * BigInt(120)) / BigInt(100),
           }

@@ -15,6 +15,7 @@ contract EarthFi {
         uint256 amount;
         address seller;
         bool available;
+        string[] fileUrls;
     }
     ListedProducts[] public products;
     uint256[] private productIds;
@@ -61,7 +62,8 @@ contract EarthFi {
         string memory _title,
         string memory _location,
         uint256 _weight,
-        uint256 _amount
+        uint256 _amount,
+        string[] memory _fileUrls
     ) external noReentrancy {
         require(msg.sender != address(0), "Zero address is not allowed");
 
@@ -69,6 +71,7 @@ contract EarthFi {
         require(bytes(_location).length > 0, "Location cannot be empty");
         require(_weight > 0, "Weight must be greater than zero");
         require(_amount > 0, "Amount must be greater than zero");
+        require(_fileUrls.length > 0, "At least one file must be uploaded");
 
         uint256 assetId = generateProductId();
         ListedProducts memory listedProduct;
@@ -80,6 +83,7 @@ contract EarthFi {
         listedProduct.amount = _amount;
         listedProduct.seller = msg.sender;
         listedProduct.available = true;
+        listedProduct.fileUrls = _fileUrls;
 
         products.push(listedProduct);
 
