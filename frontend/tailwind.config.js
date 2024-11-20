@@ -18,6 +18,7 @@ export default {
       },
       animation: {
         slide: "slide 20s linear infinite",
+        'spin-slow': 'spin 4s linear infinite',
       },
     },
   },

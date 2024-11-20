@@ -1,12 +1,12 @@
 import { createAppKit } from "@reown/appkit/react";
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
-import { baseSepolia, sepolia } from "@reown/appkit/networks";
+import { baseSepolia, sepolia, celoAlfajores } from "@reown/appkit/networks";
 
 // 1. Get projectId
 const projectId = import.meta.env.VITE_APPKIT_PROJECT_ID;
 
 // 2. Set the networks
-const networks = [baseSepolia, sepolia];
+const networks = [baseSepolia, sepolia, celoAlfajores];
 
 const metadata = {
   name: "EarthFi",
@@ -30,4 +30,5 @@ createAppKit({
     analytics: true, 
     legalCheckbox: true
   },
+  
 });

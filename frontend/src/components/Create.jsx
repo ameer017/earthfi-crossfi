@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import Union from "../assets/Union.png";
 
-const Create = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+import { toast } from "react-toastify";
+import useCreateOrder from "../hooks/useCreateOrder";
+import { useNavigate } from "react-router-dom";
 
+const Create = () => {
+  const createOrder = useCreateOrder();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [weight, setWeight] = useState("");
+  const [location, setLocation] = useState("");
+  const [amount, setAmount] = useState("");
+  const [files, setFiles] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const navigate = useNavigate();
   const handleInputClick = () => {
     setIsModalOpen(true);
   };
@@ -12,19 +24,45 @@ const Create = () => {
     setIsModalOpen(false);
   };
 
-  const handleYes = () => {
+  const handleFileChange = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    setFiles(selectedFiles);
+  };
+  
+
+  const handleCreateOrder = async () => {
+    if (!title || !weight || !location || !amount || files.length === 0) {
+      toast.error("Please fill all fields and upload required files.");
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      await createOrder(title, weight, location, amount, files);
+      // navigate("/market-place");
+      alert("Order created successfully");
+    } catch (error) {
+      console.error("Error creating order:", error);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleYes = async () => {
     setIsModalOpen(false);
   };
 
   const handleNo = () => {
     setIsModalOpen(false);
   };
+
   return (
     <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-4 my-9">
       <div className="flex flex-col items-start">
         <div>
           <h2 className="text-3xl md:text-[2.5rem] leading-tight font-medium text-gray-800 mb-2">
-            Turn Plastic into Impact! 🌍
+            Turn Plastic into Impact!{" "}
+            <span className="inline-block animate-spin-slow">🌍</span>
           </h2>
 
           <p className="text-base md:text-lg  md:w-3/4">
@@ -34,12 +72,14 @@ const Create = () => {
           </p>
         </div>
 
-        <img
-          src={Union}
-          alt="Union"
-          className="mt-4 opacity-75 w-full max-w-xs md:max-w-lg"
-          loading="lazy"
-        />
+        <div className=" w-full flex items-center justify-center md:block">
+          <img
+            src={Union}
+            alt="Union"
+            className="mt-4 opacity-75 md:max-w-lg"
+            loading="lazy"
+          />
+        </div>
       </div>
 
       <div className="mt-8 md:mt-0">
@@ -56,17 +96,21 @@ const Create = () => {
                   type="text"
                   placeholder="title"
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
 
               <div>
                 <label className="block text-lg mb-2 font-medium">
-                  Weight(KG){" "}
+                  Weight(KG)
                 </label>
                 <input
                   type="text"
                   placeholder="00.00"
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
                 />
               </div>
             </div>
@@ -80,6 +124,8 @@ const Create = () => {
                   type="text"
                   placeholder="add location"
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
 
@@ -89,25 +135,34 @@ const Create = () => {
                   type="text"
                   placeholder="0.00"
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-lg mb-2 font-medium">
-                Upload image
+                Upload Files
               </label>
               <input
                 type="file"
-                placeholder="upload img"
                 className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                multiple
+                onChange={handleFileChange}
                 onClick={handleInputClick}
               />
             </div>
 
             <div className="mt-4">
-              <button className="w-full sm:w-[15vw] bg-[#F5A624] text-white py-3 rounded-lg hover:bg-[#e69816] transition-colors">
-                Create
+              <button
+                className={`w-full sm:w-[15vw] ${
+                  isUploading ? "bg-gray-400" : "bg-[#F5A624]"
+                } text-white py-3 rounded-lg hover:bg-[#e69816] transition-colors `}
+                onClick={handleCreateOrder}
+                disabled={isUploading}
+              >
+                {isUploading ? "Uploading..." : "Create"}
               </button>
             </div>
           </div>

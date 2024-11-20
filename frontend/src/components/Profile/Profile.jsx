@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import formatFunctions from "./Txn";
+import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
+
 
 const Profile = () => {
+  const { address, isConnected } = useAppKitAccount();
+
   const [allTxns, setAllTxns] = useState([]);
   const [buyTxns, setBuyTxns] = useState([]);
   const [sellTxns, setSellTxns] = useState([]);
   const [buyBalance, setBuyBalance] = useState(0);
   const [sellBalance, setSellBalance] = useState(0);
-  const [walletAddress, setWalletAddress] = useState("0x123...abc"); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,9 +30,7 @@ const Profile = () => {
         setBuyBalance(balanceBuy);
         setSellBalance(balanceSell);
 
-        const connectedWalletAddress =
-          "0x71d43d41044de....72df7e600610";
-        setWalletAddress(connectedWalletAddress);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -48,7 +49,7 @@ const Profile = () => {
         />
         <div>
           <h1 className="text-xl font-bold text-gray-800 ">
-            {walletAddress ? walletAddress : "Wallet Not Connected"}
+            {address ? address : "Wallet Not Connected"}
           </h1>
         </div>
       </div>

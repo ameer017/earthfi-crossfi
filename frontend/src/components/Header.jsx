@@ -24,24 +24,24 @@ const Header = () => {
       </div>
 
       <nav className="hidden md:flex justify-between items-center ">
-        <Link to="/about-us" className="px-4 text-[16px]">
+        {/* <Link to="/about-us" className="px-4 text-[16px]">
           About
-        </Link>
+        </Link> */}
         <Link to="/create-order" className="px-4 text-[16px]">
           Create Order
         </Link>
-        <Link to="/token" className="px-4 text-[16px]">
+        {/* <Link to="/token" className="px-4 text-[16px]">
           EarthFI
-        </Link>
+        </Link> */}
         <Link to="/market-place" className="px-4 text-[16px]">
           Market Place
         </Link>
         <Link to="/profile" className="px-4 text-[16px]">
           Profile
         </Link>
-        <Link to="/team-members" className="px-4 text-[16px]">
+        {/* <Link to="/team-members" className="px-4 text-[16px]">
           Team
-        </Link>
+        </Link> */}
         {/* <button className="bg-[#F29F05] text-[16px] text-white py-2 px-4 rounded-lg hover:bg-orange-200 transition-all duration-300 ease-in-out">
           Connect Wallet
         </button> */}
@@ -53,39 +53,39 @@ const Header = () => {
           <div className="flex flex-col">
             <Link
               to="/about-us"
-              className="text-[16px] my-4"
+              className="text-[16px] my-4 border-b-[1px] "
               onClick={toggleMenu}
             >
               About
             </Link>
             <Link
               to="/create-order"
-              className="text-[16px] my-4"
+              className="text-[16px] my-4 border-b-[1px] "
               onClick={toggleMenu}
             >
               Create Order
             </Link>
-            <Link to="/token" className="text-[16px] my-4" onClick={toggleMenu}>
+            <Link to="/token" className="text-[16px] my-4 border-b-[1px] " onClick={toggleMenu}>
               EarthFI
             </Link>
 
             <Link
               to="/market-place"
-              className="text-[16px] my-4"
+              className="text-[16px] my-4 border-b-[1px] "
               onClick={toggleMenu}
             >
               Market Place
             </Link>
             <Link
               to="/profile"
-              className="text-[16px] my-4"
+              className="text-[16px] my-4 border-b-[1px] "
               onClick={toggleMenu}
             >
               Profile
             </Link>
             <Link
               to="/team-members"
-              className="text-[16px] my-4"
+              className="text-[16px] my-4 border-b-[1px] "
               onClick={toggleMenu}
             >
               Team
