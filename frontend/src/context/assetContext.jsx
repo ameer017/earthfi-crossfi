@@ -9,11 +9,12 @@ import useContractInstance from "../hooks/useContractInstance";
 
 const AssetContext = createContext({
   assets: [],
+  getSingleAsset: () => {},
 });
 
 export const AssetContextProvider = ({ children }) => {
   const [assets, setAssets] = useState([]);
-
+  const [singleAsset, setSingleAsset] = useState([]);
   const readOnlyAssetContract = useContractInstance();
 
   const getAssets = useCallback(async () => {
@@ -34,18 +35,46 @@ export const AssetContextProvider = ({ children }) => {
 
       // console.log(formattedTodos)
       setAssets(formattedData);
-      console.log(assets);
+      // console.log(assets);
     } catch (error) {
       console.log("Error fetching assets", error);
     }
   }, [readOnlyAssetContract]);
+
+  const getSingleAsset = useCallback(
+    async (id) => {
+      if (!readOnlyAssetContract || id === undefined) {
+        throw new Error("Contract instance or asset ID is undefined.");
+      }
+  
+      try {
+        const data = await readOnlyAssetContract.viewAssetDetail(id);
+        const formattedAsset = {
+          assetId: id,
+          title: data.title_,
+          location: data.location_,
+          weight: Number(data.weight_),
+          amount: Number(data.amount_),
+          available: data.available_,
+          file: data.fileUrls ? data.fileUrls[0] : null,
+        };
+
+        return formattedAsset;
+      } catch (error) {
+        console.error(`Error fetching asset with id ${id}`, error);
+        throw error;
+      }
+    },
+    [readOnlyAssetContract]
+  );
+  
 
   useEffect(() => {
     getAssets();
   }, [getAssets]);
 
   return (
-    <AssetContext.Provider value={{ assets }}>{children}</AssetContext.Provider>
+    <AssetContext.Provider value={{ assets, getSingleAsset }}>{children}</AssetContext.Provider>
   );
 };
 

@@ -19,9 +19,12 @@ import {
 
 import { useState, useEffect } from "react";
 import { PropagateLoader } from "react-spinners";
+import { useAppKitAccount } from "@reown/appkit/react";
+import { TxnContextProvider } from "./context/txnContext";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const { address } = useAppKitAccount();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -141,9 +144,11 @@ function App() {
         <Route
           path="/profile"
           element={
-            <Layout>
-              <Profile />
-            </Layout>
+            <TxnContextProvider>
+              <Layout>
+                <Profile address={address} />
+              </Layout>
+            </TxnContextProvider>
           }
         />
       </Routes>

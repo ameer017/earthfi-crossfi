@@ -19,7 +19,7 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="w-full md:w-1/3 flex flex-col items-left space-y-2">
+        <div className="md:px-4 flex flex-col items-left space-y-2 ">
           <h2 className="text-[20px] md:text-[25px] font-semibold">Company</h2>
           <Link
             className="text-[16px] hover:-translate-y-2 transition duration-300 ease-in-out"

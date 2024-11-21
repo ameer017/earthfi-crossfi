@@ -104,7 +104,7 @@ contract EarthFi {
     }
 
     function viewAssetDetail(
-        uint256 _index
+        uint256 _assetId
     )
         external
         view
@@ -113,29 +113,31 @@ contract EarthFi {
             string memory location_,
             uint256 weight_,
             uint256 amount_,
-            bool available_
+            bool available_,
+            string[] memory fileUrls
         )
     {
         require(msg.sender != address(0), "Zero address not allowed!");
-        require(_index < products.length, "Out of bound!");
+        require(_assetId < products.length, "Out of bound!");
 
-        ListedProducts memory singleProduct = products[_index];
+        ListedProducts memory singleProduct = products[_assetId];
 
         title_ = singleProduct.title;
         location_ = singleProduct.location;
         weight_ = singleProduct.weight;
         amount_ = singleProduct.amount;
         available_ = singleProduct.available;
+        fileUrls = singleProduct.fileUrls;
     }
 
     function getAllProducts() external view returns (ListedProducts[] memory) {
         return products;
     }
 
-    function buyAsset(uint256 _index) public noReentrancy returns (bool) {
+    function buyAsset(uint256 _assetId) public noReentrancy returns (bool) {
         require(msg.sender != address(0), "Zero address not allowed!");
 
-        ListedProducts memory singleProduct = products[_index];
+        ListedProducts memory singleProduct = products[_assetId];
         require(
             singleProduct.available == true,
             "Product not available for sale"
@@ -156,7 +158,7 @@ contract EarthFi {
 
         singleProduct.available = false;
 
-        products[_index] = singleProduct;
+        products[_assetId] = singleProduct;
 
         AssetTransaction memory assetTransaction;
         assetTransaction.timestamp = block.timestamp;
@@ -175,10 +177,10 @@ contract EarthFi {
         return true;
     }
 
-    function confirmReceipt(uint256 _index) public noReentrancy returns (bool) {
+    function confirmReceipt(uint256 _assetId) public noReentrancy returns (bool) {
         require(msg.sender != address(0), "Zero address not allowed!");
 
-        ListedProducts memory singleProduct = products[_index];
+        ListedProducts memory singleProduct = products[_assetId];
         require(
             singleProduct.available == false,
             "Product is still available for sale"
@@ -193,7 +195,7 @@ contract EarthFi {
             "Transfer failed"
         );
 
-        products[_index] = singleProduct;
+        products[_assetId] = singleProduct;
 
         withdrawalStatus[singleProduct.seller][singleProduct.assetId] = true;
 

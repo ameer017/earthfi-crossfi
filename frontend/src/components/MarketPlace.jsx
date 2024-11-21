@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAsset } from "../context/assetContext";
 
@@ -8,7 +8,6 @@ const MarketPlace = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
 
   const filteredAssets = assets.filter(
     ({ title, location }) =>
@@ -49,16 +48,7 @@ const MarketPlace = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4 gap-6">
         {currentAssets.length > 0 ? (
           currentAssets.map(
-            ({
-              id,
-              assetId,
-              title,
-              location,
-              amount,
-              weight,
-              img,
-              file,
-            }) => (
+            ({ id, assetId, title, location, amount, weight, file }) => (
               <Link
                 to={`/order/${assetId}`}
                 key={id}

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useAsset } from "../context/assetContext";
 
 const assets = [
   {
@@ -40,6 +41,7 @@ const assets = [
 const SingleOrder = () => {
   const { id } = useParams();
   const asset = assets.find((asset) => asset.id === parseInt(id));
+   
 
   if (!asset) {
     return <p>Asset not found.</p>;
@@ -49,7 +51,7 @@ const SingleOrder = () => {
     asset;
 
   return (
-    <section className="p-6 lg:p-12">
+    <section className="p-6 lg:p-12 h-full ">
       <div className="bg-gradient-to-r from-green-200 via-green-400 to-white p-8 rounded-lg text-center mb-10">
         <h1 className="text-4xl lg:text-6xl font-bold text-black ">{title}</h1>
       </div>
@@ -85,14 +87,14 @@ const SingleOrder = () => {
           </div>
         </div>
 
-        <div className="block ">
+        {/* <div className="block ">
           <hr />
           <div className="flex  p-4 items-center flex-col md:flex-row">
             <img src={imgTwo} className="w-1/2 rounded-md" />
 
             <video src={vid} controls className="w-1/2 rounded-md"></video>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="mt-12 text-center">

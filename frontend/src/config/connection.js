@@ -21,7 +21,7 @@ createAppKit({
   networks,
   metadata,
   projectId,
-  themeMode: 'light',
+  themeMode: 'dark',
   themeVariables: {
     '--w3m-accent': '#F29F05',
     '--w3m-border-radius-master': "1px"
