@@ -2,6 +2,8 @@ import { createAppKit } from "@reown/appkit/react";
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
 import { baseSepolia, sepolia, celoAlfajores } from "@reown/appkit/networks";
 
+
+
 // 1. Get projectId
 const projectId = import.meta.env.VITE_APPKIT_PROJECT_ID;
 
