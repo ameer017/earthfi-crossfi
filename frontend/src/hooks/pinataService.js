@@ -4,7 +4,6 @@ import FormData from "form-data";
 
 const PINATA_API_KEY = "178d358f8f8053a19e14"
 const PINATA_API_SECRET = "abbe9f8c29eb334765e1d2521395bb59abd59c0ce1a2be85c309a85438d1ab41"
-const PINATA_BASE_URL = import.meta.PINATA_BASE_URL;
 
 export const uploadJSONToIPFS = async (JSONBody) => {
   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;

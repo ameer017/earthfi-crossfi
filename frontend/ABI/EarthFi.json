@@ -61,12 +61,6 @@
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "assetId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
 			}
@@ -103,7 +97,7 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_assetId",
+				"name": "_id",
 				"type": "uint256"
 			}
 		],
@@ -122,20 +116,7 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_index",
-				"type": "uint256"
-			}
-		],
-		"name": "cancelPurchase",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_assetId",
+				"name": "_id",
 				"type": "uint256"
 			}
 		],
@@ -173,9 +154,9 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "string[]",
-				"name": "_fileUrls",
-				"type": "string[]"
+				"internalType": "string",
+				"name": "_fileUrl",
+				"type": "string"
 			}
 		],
 		"name": "listAsset",
@@ -222,11 +203,6 @@
 				"internalType": "address",
 				"name": "seller",
 				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "assetId",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -247,39 +223,13 @@
 	},
 	{
 		"inputs": [],
-		"name": "generateBuyBalance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "generateSellBalance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "getAllProducts",
 		"outputs": [
 			{
 				"components": [
 					{
 						"internalType": "uint256",
-						"name": "assetId",
+						"name": "id",
 						"type": "uint256"
 					},
 					{
@@ -313,58 +263,12 @@
 						"type": "bool"
 					},
 					{
-						"internalType": "string[]",
-						"name": "fileUrls",
-						"type": "string[]"
+						"internalType": "string",
+						"name": "fileUrl",
+						"type": "string"
 					}
 				],
-				"internalType": "struct EarthFi.ListedProducts[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_assetId",
-				"type": "uint256"
-			}
-		],
-		"name": "getAssetTransactions",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "timestamp",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "buyer",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "seller",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "assetId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct EarthFi.AssetTransaction[]",
+				"internalType": "struct EarthFi.ListedProduct[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -403,103 +307,6 @@
 						"internalType": "address",
 						"name": "seller",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "assetId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct EarthFi.AssetTransaction[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_buyer",
-				"type": "address"
-			}
-		],
-		"name": "getUserBuyTransactions",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "timestamp",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "buyer",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "seller",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "assetId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct EarthFi.AssetTransaction[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_seller",
-				"type": "address"
-			}
-		],
-		"name": "getUserSellTransactions",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "timestamp",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "buyer",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
-						"name": "seller",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "assetId",
-						"type": "uint256"
 					}
 				],
 				"internalType": "struct EarthFi.AssetTransaction[]",
@@ -535,7 +342,7 @@
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "assetId",
+				"name": "id",
 				"type": "uint256"
 			},
 			{
@@ -567,6 +374,11 @@
 				"internalType": "bool",
 				"name": "available",
 				"type": "bool"
+			},
+			{
+				"internalType": "string",
+				"name": "fileUrl",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -606,11 +418,6 @@
 				"internalType": "address",
 				"name": "seller",
 				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "assetId",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -620,12 +427,17 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_assetId",
+				"name": "_id",
 				"type": "uint256"
 			}
 		],
 		"name": "viewAssetDetail",
 		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id_",
+				"type": "uint256"
+			},
 			{
 				"internalType": "string",
 				"name": "title_",
@@ -652,33 +464,9 @@
 				"type": "bool"
 			},
 			{
-				"internalType": "string[]",
-				"name": "fileUrls",
-				"type": "string[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "withdrawalStatus",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
+				"internalType": "string",
+				"name": "fileUrl",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",

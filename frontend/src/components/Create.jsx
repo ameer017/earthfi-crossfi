@@ -1,37 +1,28 @@
 import React, { useState } from "react";
 import Union from "../assets/Union.png";
-
 import { toast } from "react-toastify";
 import useCreateOrder from "../hooks/useCreateOrder";
 import { useNavigate } from "react-router-dom";
 
 const Create = () => {
   const createOrder = useCreateOrder();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [weight, setWeight] = useState("");
   const [location, setLocation] = useState("");
   const [amount, setAmount] = useState("");
-  const [files, setFiles] = useState([]);
+  const [files, setFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
 
   const navigate = useNavigate();
-  const handleInputClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
 
   const handleFileChange = (event) => {
-    const selectedFiles = Array.from(event.target.files);
-    setFiles(selectedFiles);
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+    console.log(selectedFile)
   };
-  
 
   const handleCreateOrder = async () => {
-    if (!title || !weight || !location || !amount || files.length === 0) {
+    if (!title || !weight || !location || !amount || !files) {
       toast.error("Please fill all fields and upload required files.");
       return;
     }
@@ -39,21 +30,12 @@ const Create = () => {
     setIsUploading(true);
     try {
       await createOrder(title, weight, location, amount, files);
-      // navigate("/market-place");
-      alert("Order created successfully");
+      toast.success("Order created successfully");
     } catch (error) {
       console.error("Error creating order:", error);
     } finally {
       setIsUploading(false);
     }
-  };
-
-  const handleYes = async () => {
-    setIsModalOpen(false);
-  };
-
-  const handleNo = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -64,14 +46,12 @@ const Create = () => {
             Turn Plastic into Impact!{" "}
             <span className="inline-block animate-spin-slow">🌍</span>
           </h2>
-
           <p className="text-base md:text-lg  md:w-3/4">
             Submit your order now and be part of the movement driving change
             through recycling. Let&apos;s make a sustainable future possible
             together!
           </p>
         </div>
-
         <div className=" w-full flex items-center justify-center md:block">
           <img
             src={Union}
@@ -103,7 +83,7 @@ const Create = () => {
 
               <div>
                 <label className="block text-lg mb-2 font-medium">
-                  Weight(KG)
+                  Weight (KG)
                 </label>
                 <input
                   type="text"
@@ -148,10 +128,16 @@ const Create = () => {
               <input
                 type="file"
                 className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
-                multiple
                 onChange={handleFileChange}
-                onClick={handleInputClick}
               />
+              <div className="bg-gray-100 p-4 rounded-lg mt-2 text-sm">
+                <p className="font-medium">Upload one of the following:</p>
+                <ul className="list-disc pl-5">
+                  <li>A recorded video of the asset being weighed.</li>
+                  <li>Image of the asset before being weighed.</li>
+                  <li>Image of the asset after being weighed.</li>
+                </ul>
+              </div>
             </div>
 
             <div className="mt-4">
@@ -168,37 +154,6 @@ const Create = () => {
           </div>
         </div>
       </div>
-
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-sm mx-auto">
-            <h2 className="text-lg font-bold mb-4">
-              Requirements [1 video and 2 images]{" "}
-            </h2>
-            <p className="mb-4">
-              The following files are expected to be uploaded:
-            </p>
-            <ul className="list-disc pl-5 mb-4">
-              <li>A recorded video of the asset being weighed</li>
-              <li>Image of the asset before and after being weighed</li>
-            </ul>
-            <div className="flex justify-end space-x-4">
-              <button
-                onClick={handleNo}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              >
-                No
-              </button>
-              <button
-                onClick={handleYes}
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                Yes
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

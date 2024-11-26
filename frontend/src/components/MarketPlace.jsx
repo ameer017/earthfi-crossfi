@@ -48,13 +48,13 @@ const MarketPlace = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4 gap-6">
         {currentAssets.length > 0 ? (
           currentAssets.map(
-            ({ id, assetId, title, location, amount, weight, file }) => (
+            ({ id, title, location, amount, weight, file }) => (
               <Link
-                to={`/order/${assetId}`}
+                to={`/order/${id}`}
                 key={id}
                 className="border-2 px-5 py-[3rem] rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl bg-white"
               >
-                <img src={file} className="w-full mb-2  " />
+                <img src={file} className="w-full mb-2 h-[30vh] rounded-lg " />
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
                   {" "}
                   Title: {title}

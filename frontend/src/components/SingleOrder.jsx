@@ -1,65 +1,75 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAsset } from "../context/assetContext";
-
-const assets = [
-  {
-    id: 1,
-    title: "Voyatouch",
-    location: "Apt 421",
-    price: 2003,
-    weight: 1,
-    description: "A high-quality product suitable for various uses.",
-    img: "/orderImage.png",
-    imgTwo: "/earth.png",
-    vid: "/vid.mp4",
-  },
-  {
-    id: 2,
-    title: "Holdlamis",
-    location: "Suite 89",
-    price: 2006,
-    weight: 2,
-    description: "Premium material designed for modern applications.",
-    img: "/orderImage.png",
-    imgTwo: "/earth.png",
-    vid: "/vid.mp4",
-  },
-  {
-    id: 3,
-    title: "Tampflex",
-    location: "PO Box 26955",
-    price: 1998,
-    weight: 3,
-    description: "Durable and reliable product for all your needs.",
-    img: "/orderImage.png",
-    imgTwo: "/earth.png",
-    vid: "/vid.mp4",
-  },
-];
+import useBuyAsset from "../hooks/useBuyAsset";
+import useConfirmBuyAsset from "../hooks/useConfirmBuy";
 
 const SingleOrder = () => {
   const { id } = useParams();
-  const asset = assets.find((asset) => asset.id === parseInt(id));
-   
+  const { asset, getSingleAsset } = useAsset();
+  const [loading, setLoading] = useState(false);
+  const [purchaseComplete, setPurchaseComplete] = useState(false);
+  const buy = useBuyAsset();
+  const confirmBuy = useConfirmBuyAsset();
+
+  const fetchSingleAsset = async () => {
+    setLoading(true);
+    await getSingleAsset(id);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchSingleAsset();
+  }, [id]);
 
   if (!asset) {
     return <p>Asset not found.</p>;
   }
 
-  const { title, location, price, weight, description, img, imgTwo, vid } =
-    asset;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="loader">Loading...</div>
+      </div>
+    );
+  }
+
+  const { title, location, amount, weight, file } = asset;
+
+  const handleBuyAsset = async () => {
+    try {
+      setLoading(true);
+      await buy(id);
+      setPurchaseComplete(true); // Mark purchase as complete
+    } catch (error) {
+      console.error("Error buying asset:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleConfirmBuyAsset = async () => {
+    try {
+      setLoading(true);
+      await confirmBuy(id);
+      alert("Purchase confirmed!");
+    } catch (error) {
+      console.error("Error confirming purchase:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <section className="p-6 lg:p-12 h-full ">
+    <section className="p-6 lg:p-12 h-full">
       <div className="bg-gradient-to-r from-green-200 via-green-400 to-white p-8 rounded-lg text-center mb-10">
-        <h1 className="text-4xl lg:text-6xl font-bold text-black ">{title}</h1>
+        <h1 className="text-4xl lg:text-6xl font-bold text-black">{title}</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="flex flex-col items-center">
           <img
-            src={img}
+            src={file}
             alt={title}
             className="w-full h-72 object-cover rounded-lg mb-4"
           />
@@ -71,30 +81,32 @@ const SingleOrder = () => {
             <strong>Location:</strong> {location}
           </p>
           <p className="text-gray-700 text-lg mb-4">
-            <strong>Price:</strong> ${price}
+            <strong>Price:</strong> {amount} CELO
           </p>
           <p className="text-gray-700 text-lg mb-4">
             <strong>Weight:</strong> {weight} kg
           </p>
-          <p className="text-gray-700 text-lg mb-4">
-            <strong>Description:</strong> {description}
-          </p>
 
           <div className="mt-8">
-            <button className="bg-green-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-green-700 transition duration-300">
-              Order Now
-            </button>
+            {!purchaseComplete ? (
+              <button
+                className="bg-green-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-green-700 transition duration-300"
+                onClick={handleBuyAsset}
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Order Now"}
+              </button>
+            ) : (
+              <button
+                className="bg-blue-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-300"
+                onClick={handleConfirmBuyAsset}
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Confirm Receipt"}
+              </button>
+            )}
           </div>
         </div>
-
-        {/* <div className="block ">
-          <hr />
-          <div className="flex  p-4 items-center flex-col md:flex-row">
-            <img src={imgTwo} className="w-1/2 rounded-md" />
-
-            <video src={vid} controls className="w-1/2 rounded-md"></video>
-          </div>
-        </div> */}
       </div>
 
       <div className="mt-12 text-center">

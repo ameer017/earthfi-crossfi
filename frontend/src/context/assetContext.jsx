@@ -14,7 +14,8 @@ const AssetContext = createContext({
 
 export const AssetContextProvider = ({ children }) => {
   const [assets, setAssets] = useState([]);
-  const [singleAsset, setSingleAsset] = useState([]);
+  const [asset, setAsset] = useState(null);
+
   const readOnlyAssetContract = useContractInstance();
 
   const getAssets = useCallback(async () => {
@@ -24,13 +25,13 @@ export const AssetContextProvider = ({ children }) => {
       const data = await readOnlyAssetContract.getAllProducts();
       // console.log(data)
       const formattedData = data.map((asset) => ({
-        assetId: Number(asset.assetId),
+        id: Number(asset.id),
         title: asset.title,
         location: asset.location,
         weight: Number(asset.weight),
         amount: Number(asset.amount),
         available: asset.available,
-        file: asset.fileUrls[0],
+        file: asset.fileUrl,
       }));
 
       // console.log(formattedTodos)
@@ -43,38 +44,53 @@ export const AssetContextProvider = ({ children }) => {
 
   const getSingleAsset = useCallback(
     async (id) => {
-      if (!readOnlyAssetContract || id === undefined) {
-        throw new Error("Contract instance or asset ID is undefined.");
-      }
-  
+    
       try {
-        const data = await readOnlyAssetContract.viewAssetDetail(id);
+        // console.log("Fetching asset with ID:", id);
+  
+        // Fetch all products
+        const data = await readOnlyAssetContract.getAllProducts();
+  
+        // Find the asset with the matching ID
+        const asset = data.find((item) => Number(item.id) === Number(id));
+        if (!asset) {
+          console.log(`Asset with ID ${id} not found.`);
+          return null;
+        }
+  
+        // Format the asset
         const formattedAsset = {
-          assetId: id,
-          title: data.title_,
-          location: data.location_,
-          weight: Number(data.weight_),
-          amount: Number(data.amount_),
-          available: data.available_,
-          file: data.fileUrls ? data.fileUrls[0] : null,
+          id: Number(asset.id),
+          title: asset.title,
+          location: asset.location,
+          weight: Number(asset.weight),
+          amount: Number(asset.amount),
+          available: asset.available,
+          file: asset.fileUrl,
         };
-
+  
+        // console.log("Single asset:", formattedAsset);
+        setAsset(formattedAsset);
         return formattedAsset;
       } catch (error) {
-        console.error(`Error fetching asset with id ${id}`, error);
-        throw error;
+        console.error("Error fetching single asset:", error);
+        return null;
       }
     },
     [readOnlyAssetContract]
   );
   
+  
 
   useEffect(() => {
     getAssets();
-  }, [getAssets]);
+    getSingleAsset();
+  }, [getAssets, getSingleAsset]);
 
   return (
-    <AssetContext.Provider value={{ assets, getSingleAsset }}>{children}</AssetContext.Provider>
+    <AssetContext.Provider value={{ assets, asset, getSingleAsset }}>
+      {children}
+    </AssetContext.Provider>
   );
 };
 
