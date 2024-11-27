@@ -4,7 +4,6 @@ import { useAsset } from "../context/assetContext";
 
 const MarketPlace = () => {
   const { assets } = useAsset();
-  // console.log(assets);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -45,28 +44,36 @@ const MarketPlace = () => {
         </div>
       </div>
 
+      {/* Change <Lin> to <div> */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4 gap-6">
         {currentAssets.length > 0 ? (
           currentAssets.map(
-            ({ id, title, location, amount, weight, file }) => (
+            ({ id, title, location, amount, weight, file, available }) => (
               <Link
-                to={`/order/${id}`}
+                to={`/order/${id}`} // Corrected to use backticks for dynamic routing
                 key={id}
-                className="border-2 px-5 py-[3rem] rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl bg-white"
+                className={`border-2 px-5 py-[3rem] rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl bg-white ${
+                  !available ? "opacity-50" : ""
+                }`}
               >
                 <img src={file} className="w-full mb-2 h-[30vh] rounded-lg " />
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  {" "}
                   Title: {title}
                 </h2>
 
                 <p className="text-lg font-semibold text-green-600">
-                  Amount: {amount} CELO
+                  Amount: {amount} EFI
                 </p>
                 <p className="text-lg text-gray-600 mb-4">
                   Seller&apos;s Location: {location}
                 </p>
                 <p className="text-lg text-gray-500">Weight: {weight} kg</p>
+
+                {!available && (
+                  <p className="text-red-500 mt-4 font-semibold">
+                    Not Available
+                  </p>
+                )}
               </Link>
             )
           )

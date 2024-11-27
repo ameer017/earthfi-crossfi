@@ -30,15 +30,15 @@ const Header = () => {
         <Link to="/create-order" className="px-4 text-[16px]">
           Create Order
         </Link>
-        {/* <Link to="/token" className="px-4 text-[16px]">
+        <Link to="/token" className="px-4 text-[16px]">
           EarthFI
-        </Link> */}
+        </Link>
         <Link to="/market-place" className="px-4 text-[16px]">
           Market Place
         </Link>
-        <Link to="/profile" className="px-4 text-[16px]">
+        {/* <Link to="/profile" className="px-4 text-[16px]">
           Profile
-        </Link>
+        </Link> */}
         {/* <Link to="/team-members" className="px-4 text-[16px]">
           Team
         </Link> */}

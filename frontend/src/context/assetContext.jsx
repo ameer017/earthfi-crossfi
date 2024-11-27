@@ -23,7 +23,7 @@ export const AssetContextProvider = ({ children }) => {
 
     try {
       const data = await readOnlyAssetContract.getAllProducts();
-      // console.log(data)
+      // console.log("Raw data", data)
       const formattedData = data.map((asset) => ({
         id: Number(asset.id),
         title: asset.title,
@@ -31,10 +31,11 @@ export const AssetContextProvider = ({ children }) => {
         weight: Number(asset.weight),
         amount: Number(asset.amount),
         available: asset.available,
+        seller: asset.seller,
         file: asset.fileUrl,
       }));
 
-      // console.log(formattedTodos)
+      // console.log(formattedData)
       setAssets(formattedData);
       // console.log(assets);
     } catch (error) {
@@ -44,20 +45,19 @@ export const AssetContextProvider = ({ children }) => {
 
   const getSingleAsset = useCallback(
     async (id) => {
-    
       try {
         // console.log("Fetching asset with ID:", id);
-  
+
         // Fetch all products
         const data = await readOnlyAssetContract.getAllProducts();
-  
+
         // Find the asset with the matching ID
         const asset = data.find((item) => Number(item.id) === Number(id));
         if (!asset) {
           console.log(`Asset with ID ${id} not found.`);
           return null;
         }
-  
+
         // Format the asset
         const formattedAsset = {
           id: Number(asset.id),
@@ -68,7 +68,7 @@ export const AssetContextProvider = ({ children }) => {
           available: asset.available,
           file: asset.fileUrl,
         };
-  
+
         // console.log("Single asset:", formattedAsset);
         setAsset(formattedAsset);
         return formattedAsset;
@@ -79,13 +79,10 @@ export const AssetContextProvider = ({ children }) => {
     },
     [readOnlyAssetContract]
   );
-  
-  
 
   useEffect(() => {
     getAssets();
-    getSingleAsset();
-  }, [getAssets, getSingleAsset]);
+  }, [getAssets]);
 
   return (
     <AssetContext.Provider value={{ assets, asset, getSingleAsset }}>

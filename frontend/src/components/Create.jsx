@@ -30,7 +30,7 @@ const Create = () => {
     setIsUploading(true);
     try {
       await createOrder(title, weight, location, amount, files);
-      toast.success("Order created successfully");
+      // toast.success("Order created successfully");
     } catch (error) {
       console.error("Error creating order:", error);
     } finally {
