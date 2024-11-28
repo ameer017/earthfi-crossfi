@@ -16,7 +16,7 @@ Before you begin, ensure you have met the following requirements:
 
 - Node.js (>= v14)
 - npm or yarn
-- An EVM compatible Wallet (for testing or usage)
+- An EVM compatible Wallet (Metamask/Keplr)
 
 
 ## Installation
