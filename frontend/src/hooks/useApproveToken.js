@@ -1,5 +1,5 @@
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
-import { celoAlfajores } from "@reown/appkit/networks";
+// import { celoAlfajores } from "@reown/appkit/networks";
 import { BrowserProvider, Contract } from "ethers";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
@@ -44,10 +44,10 @@ const useApproveToken = () => {
         return;
       }
 
-      if (Number(chainId) !== Number(celoAlfajores.id)) {
-        toast.error("You're not connected to Celo Alfajores");
-        return;
-      }
+      // if (Number(chainId) !== Number(crossfi.id)) {
+      //   toast.error("You're not connected to Celo Alfajores");
+      //   return;
+      // }
 
       if (!window.ethereum) {
         toast.error("MetaMask is not installed. Please install it to proceed.");

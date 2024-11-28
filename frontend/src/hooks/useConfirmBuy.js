@@ -1,5 +1,5 @@
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
-import { celoAlfajores } from "@reown/appkit/networks";
+// import { celoAlfajores } from "@reown/appkit/networks";
 import useContractInstance from "./useContractInstance";
 import { useCallback } from "react";
 import { toast } from "react-toastify";
@@ -20,10 +20,10 @@ const useConfirmBuyAsset = () => {
         return;
       }
 
-      if (Number(chainId) !== Number(celoAlfajores.id)) {
-        toast.error("You're not connected to celoAlfajores");
-        return;
-      }
+      // if (Number(chainId) !== Number(celoAlfajores.id)) {
+      //   toast.error("You're not connected to celoAlfajores");
+      //   return;
+      // }
 
       try {
         const estimatedGas = await contract.confirmReceipt.estimateGas(id);

@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import useContractInstance from "./useContractInstance";
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
 import { toast } from "react-toastify";
-import { celoAlfajores } from "@reown/appkit/networks";
+// import { celoAlfajores } from "@reown/appkit/networks";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "./pinataService";
 import { useNavigate } from "react-router-dom";
 
@@ -26,10 +26,10 @@ const useCreateOrder = () => {
         toast.error("Contract not initialized");
         return;
       }
-      if (Number(chainId) !== Number(celoAlfajores.id)) {
-        toast.error("Please switch network to Alfajores");
-        return;
-      }
+      // if (Number(chainId) !== Number(celoAlfajores.id)) {
+      //   toast.error("Please switch network to Alfajores");
+      //   return;
+      // }
 
       try {
         const weightBN = BigInt(weight);
