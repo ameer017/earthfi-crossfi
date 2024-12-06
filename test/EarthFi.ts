@@ -25,7 +25,8 @@ describe("EarthFi contract Test Driven Development", () => {
             const location = "Write and make sure Hello world can display on the screen"
             const weight = hre.ethers.parseUnits("20");
             const amount = hre.ethers.parseEther("100");
-            await earthfi.listAsset(title, location, weight, amount);
+            const fileURL = "https://images.pexels.com/photos/1000084/pexels-photo-1000084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            await earthfi.listAsset(title, location, weight, amount, fileURL);
 
             const products = await earthfi.getAllProducts();
             const [product] = products;
@@ -34,6 +35,7 @@ describe("EarthFi contract Test Driven Development", () => {
             expect(product.location).to.equal(location);
             expect(product.weight).to.equal(weight);
             expect(product.amount).to.equal(amount);
+            expect(product.fileUrl).to.equal(fileURL);
 
         });
     })
