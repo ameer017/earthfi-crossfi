@@ -38,7 +38,7 @@ const GetStarted = () => {
   ];
 
   return (
-    <section className="p-6 font-nunito max-w-[90%] mx-auto sm:max-w-[700px] lg:max-w-[900px] shadow-md shadow-[rgba(3, 175, 108, 0.10)] border-2 rounded-lg my-6">
+    <section className="p-6  mt-6 font-nunito max-w-[90%] mx-auto sm:max-w-[700px] lg:max-w-[900px] shadow-md shadow-[rgba(3, 175, 108, 0.10)] border-2 rounded-lg my-6">
       <h1 className="text-3xl sm:text-4xl font-bold my-4 text-left">
         Get Started
       </h1>

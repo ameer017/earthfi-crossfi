@@ -39,7 +39,7 @@ const Contact = () => {
 
   return (
     <section
-      className="flex items-center justify-center p-6 h-[85vh] bg-cover bg-center bg-no-repeat"
+      className="flex items-center justify-center p-6 h-[85vh] bg-cover bg-center bg-no-repeat mt-6"
       style={{
         backgroundImage:
           "linear-gradient(to right, rgba(240, 255, 240, 0.8), rgba(255, 255, 255, 0.2)), url('/herobg.png')",

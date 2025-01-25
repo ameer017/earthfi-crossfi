@@ -29,7 +29,7 @@ const MarketPlace = () => {
   };
 
   return (
-    <section className="p-6 h-full">
+    <section className="p-6 h-full mt-[80px] ">
       <h1 className="text-[48px] text-center mb-6">Market Place.</h1>
 
       <div className="flex justify-center py-4">
@@ -45,7 +45,7 @@ const MarketPlace = () => {
       </div>
 
       {/* Change <Lin> to <div> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-4 gap-6 ">
         {currentAssets.length > 0 ? (
           currentAssets.map(
             ({ id, title, location, amount, weight, file, available }) => (
@@ -78,7 +78,9 @@ const MarketPlace = () => {
             )
           )
         ) : (
-          <p className="text-center text-gray-500">No assets found.</p>
+          <div className="h-[40vh] flex justify-center items-center w-[90vw] ">
+            <p className="text-center text-red-500">No assets currently listed.</p>
+          </div>
         )}
       </div>
 

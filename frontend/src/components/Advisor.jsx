@@ -13,7 +13,7 @@ const advisor = [
 const Advisor = () => {
   return (
     <section>
-      <div className="container mx-auto">
+      <div className="container mx-auto mt-6">
         <h2 className="text-[28px] sm:text-[32px] md:text-[48px] leading-[34px] sm:leading-[40px] md:leading-[57.6px] font-u font-medium text-center my-6 sm:my-8 md:my-12 text-[#292929]">
           Advisors.
         </h2>

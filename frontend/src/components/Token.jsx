@@ -3,7 +3,7 @@ import React from "react";
 const Token = () => {
   return (
     <div
-      className="pt-[111px] pl-[43px]"
+      className="pt-[111px] pl-[43px] mt-6"
       style={{
         background: "linear-gradient(to bottom, rgba(162, 248, 205, 0.2), rgba(162, 248, 205, 0.1), #FFFFFF)",
       }}

@@ -39,7 +39,7 @@ const Create = () => {
   };
 
   return (
-    <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-4 my-9">
+    <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-4 my-[120px] ">
       <div className="flex flex-col items-start">
         <div>
           <h2 className="text-3xl md:text-[2.5rem] leading-tight font-medium text-gray-800 mb-2">
